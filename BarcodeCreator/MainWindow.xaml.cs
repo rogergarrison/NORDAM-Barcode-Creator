@@ -27,6 +27,7 @@ namespace BarcodeCreator
     public partial class MainWindow : Window
     {
         private Nordam2DLabel labelInfo;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -80,8 +81,6 @@ namespace BarcodeCreator
         {
             var previewImage = await Task<System.Drawing.Image>.Factory.StartNew(() => GetPreviewImage());
             SetPreviewImage(previewImage);
-            //1inch == 96 px
-            //PreviewImage.Height = labelInfo.HeightInches * 96;
             PreviewImage.Height = previewImage.Height * 0.50;
             PreviewImage.Width = previewImage.Width * 0.50;
             PreviewImage.Visibility = System.Windows.Visibility.Visible;

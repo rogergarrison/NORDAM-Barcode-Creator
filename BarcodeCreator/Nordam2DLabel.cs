@@ -9,12 +9,37 @@ namespace BarcodeCreator
 {
     public class Nordam2DLabel
     {
+        ///  <summary>
+        ///  Nordam2DLabel is a wrapper over ZPL that takes ins the dimensions of the label and creates
+        ///  the appropriate ZPL commands to output a Nordam 2D label based on the specifications
+        /// </summary>
+
+        //private properties
         private readonly double setHeightInMM;
         private readonly double setWidthInMM;
-        public readonly int Dots;
         private double RowVal;
         private readonly Dictionary<string, string> LabelValues;
 
+        private double InterChangeWidth 
+        {
+            get 
+            {
+                return Math.Round(((WidthMM - 10) * Dots) / 317, 1);
+            } 
+        }
+        private double FontWidth 
+        { 
+            get 
+            { 
+                return 5 * InterChangeWidth; 
+            } 
+        }
+        private double FontRatio { get { return Math.Round(FontWidth / 10, 1); } }
+
+        //public properties
+        public readonly int Dots;
+
+        // constructor
         public Nordam2DLabel(double height, double width, int dots, bool millimeters, Dictionary<string, string> labelValues)
         {
             this.LabelValues = labelValues;
@@ -44,22 +69,7 @@ namespace BarcodeCreator
 
         }
 
-        private double InterChangeWidth 
-        {
-            get 
-            {
-                return Math.Round(((WidthMM - 10) * Dots) / 317, 1);
-            } 
-        }
-        private double FontWidth 
-        { 
-            get 
-            { 
-                return 5 * InterChangeWidth; 
-            } 
-        }
-        private double FontRatio { get { return Math.Round(FontWidth / 10, 1); } }
-
+        // private methods
         private string SetFontSize()
         {
             //CF is the Font settings for Zebra print
@@ -141,6 +151,8 @@ namespace BarcodeCreator
             return (int)(0.635 * this.Dots);
         }
 
+
+        // public methods
         public string GetLabel()
         {
             RowVal = 3 * this.Dots; //Nordam has their first row at 3 mm from the top

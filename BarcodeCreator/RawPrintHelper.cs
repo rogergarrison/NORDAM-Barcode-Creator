@@ -10,7 +10,12 @@ namespace BarcodeCreator
 {
     public class RawPrintHelper
     {
-        // this is pulled from https://stackoverflow.com/questions/2044676/net-code-to-send-zpl-to-zebra-printers
+        /// <summary>
+        /// this is to send raw data to a printer. This is necessary for Zebra printers
+        ///
+        /// this is based on  the example from https://stackoverflow.com/questions/2044676/net-code-to-send-zpl-to-zebra-printers
+        /// </summary>
+
 
         // Structure and API declarions:
         [StructLayout(LayoutKind.Sequential, CharSet=CharSet.Ansi)]
